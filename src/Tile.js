@@ -20,8 +20,7 @@ TILES = {
 	WALKER: 34,
 	CRATE: 22,
 
-	data: [
-		{
+	data: [{
 			c: '#B68956',
 			h: 3
 		}, {
@@ -33,8 +32,7 @@ TILES = {
 		}, {
 			c: '#845724',
 			h: 1
-		},
-		{
+		}, {
 			c: '#808752',
 			h: 2
 		}, // 4
@@ -55,8 +53,7 @@ TILES = {
 		{
 			c: '#2ca90d',
 			h: 2
-		},
-		{
+		}, {
 			c: '#e1fb58',
 			h: 2
 		}, {
@@ -72,13 +69,34 @@ TILES = {
 	}
 }
 
-TILES.data[TILES.GRASS] = {p: 0};
-TILES.data[TILES.DIRT1] = {p: 1};
-TILES.data[TILES.DIRT2] = {p: 5};
-TILES.data[TILES.REDWOOD] = {p: 2};
-TILES.data[TILES.CELL] = {p: 3};
-TILES.data[TILES.BOMB1] = {p: 3, y: 1};
-TILES.data[TILES.BOMB2] = {p: 5, y: 1};
-TILES.data[TILES.SPIKES] = {p: 6};
+TILES.data[TILES.GRASS] = {
+	p: 0
+};
+TILES.data[TILES.DIRT1] = {
+	p: 1
+};
+TILES.data[TILES.DIRT2] = {
+	p: 5
+};
+TILES.data[TILES.REDWOOD] = {
+	p: 2
+};
+TILES.data[TILES.CELL] = {
+	p: 3
+};
+TILES.data[TILES.BOMB1] = {
+	p: 3,
+	y: 1
+};
+TILES.data[TILES.BOMB2] = {
+	p: 5,
+	y: 1
+};
+TILES.data[TILES.SPIKES] = {
+	p: 6
+};
 //TILES.data[TILES.INVADER] = {p: 4, y: 1};
-TILES.data[TILES.CRATE] = {h: 6, p: 4};
+TILES.data[TILES.CRATE] = {
+	h: 6,
+	p: 4
+};

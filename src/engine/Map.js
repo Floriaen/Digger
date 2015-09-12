@@ -79,7 +79,7 @@ Map.prototype = {
 	],
 
 	addBlocks: function() {
-		var w =  Game.terrain.size / 2;
+		var w = Game.terrain.size / 2;
 		// addBlock
 		for (var x = 0; x < Game.terrain.size; x += Map.BLOCK_SIZE) {
 			for (var y = 13; y < Game.terrain.size; y += Map.BLOCK_SIZE) {
@@ -93,11 +93,14 @@ Map.prototype = {
 		}
 	},
 
-	addBlock: function(x, y) {
+	addBlock: function(x, y)  {
 		// pick up a random one:
 		var r = M.floor(M.random() * Map.blocks.length);
 		var b = Map.blocks[r];
-		var i = b.length, tx = 0, ty = 0, f = M.random() > 0.5; // flip
+		var i = b.length,
+			tx = 0,
+			ty = 0,
+			f = M.random() > 0.5; // flip
 		while (i--) {
 			ty = M.floor(i / Map.BLOCK_SIZE);
 			tx = i - ty * Map.BLOCK_SIZE;
@@ -111,7 +114,10 @@ Map.prototype = {
 
 	addCaves: function(x, y) {
 		x -= M.floor(this.caveWidth / 2);
-		var tx = 0, ty = 0, v = 0, i = this.cave.length;
+		var tx = 0,
+			ty = 0,
+			v = 0,
+			i = this.cave.length;
 		while (i--) {
 			ty = M.floor(i / this.caveWidth);
 			tx = i - ty * this.caveWidth;

@@ -115,7 +115,12 @@ var Game = {
 				var d = Math.sqrtDistance(x, y, tx, ty);
 				if (d > tileDistance) {
 					tileDistance = d;
-					foundTile = {tile: {x: tx, y: ty}};
+					foundTile = {
+						tile: {
+							x: tx,
+							y: ty
+						}
+					};
 				}
 			}
 		}
@@ -256,7 +261,8 @@ var Game = {
 
 		if ((this.shake -= dt) < 0) this.shake = 0;
 
-		var val = 0, i = 0;
+		var val = 0,
+			i = 0;
 		this.checkGravityDelay = this.checkGravityDelay - dt;
 		if (this.checkGravityDelay < 0) {
 			this.checkGravityDelay = 0.2;
@@ -360,7 +366,8 @@ var Game = {
 					ry = M.floor(tileY * Game.TILE) - Camera.y;
 
 					if (tile.p !== undefined) {
-						var p = tile.p, ty = tile.y;
+						var p = tile.p,
+							ty = tile.y;
 						if (idx === TILES.BOMB1 || idx === TILES.BOMB2) { // draw later
 							extraTile.push({
 								x: rx,
@@ -388,7 +395,7 @@ var Game = {
 						this.ctx.beginPath();
 						this.ctx.globalAlpha = 0.1;
 						this.ctx.strokeStyle = "#000";
-						this.ctx.rect(rx, ry, Game.TILE,  Game.TILE);
+						this.ctx.rect(rx, ry, Game.TILE, Game.TILE);
 						this.ctx.stroke();
 						this.ctx.globalAlpha = 1;
 					}
@@ -425,7 +432,7 @@ var Game = {
 
 		if (this.gameOver) {
 			this.dialogContainer.style.display = 'block';
-			this.dialog.innerHTML = (this.stuck ? 'STUCK': 'GAME OVER');
+			this.dialog.innerHTML = (this.stuck ? 'STUCK' : 'GAME OVER');
 			if (Input.keys.space) {
 				this.load();
 				this.dialogContainer.style.display = 'none';
@@ -441,8 +448,8 @@ var Game = {
 		this.ctx.fill();
 
 		this.ctx.font = "24px Arial, sans-serif";
-        this.ctx.fillStyle = "white";
-        this.ctx.fillText(this.score, 32, 30);
+		this.ctx.fillStyle = "white";
+		this.ctx.fillText(this.score, 32, 30);
 
 		this.ctx.restore();
 	}

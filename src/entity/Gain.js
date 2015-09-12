@@ -16,9 +16,9 @@ Gain.prototype = {
 	render: function(ctx) {
 		ctx.globalAlpha = 1 - this.delay / Gain.DELAY;
 		ctx.beginPath();
-        ctx.arc(this.x - Camera.x, this.y - Camera.y, 6, 0, 2 * Math.PI, true);
-        ctx.fillStyle = "yellow";
-        ctx.fill();
+		ctx.arc(this.x - Camera.x, this.y - Camera.y, 6, 0, 2 * Math.PI, true);
+		ctx.fillStyle = "yellow";
+		ctx.fill();
 		ctx.globalAlpha = 1;
 	}
 };
