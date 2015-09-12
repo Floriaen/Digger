@@ -1,0 +1,32 @@
+{
+  "name": "miner",
+  "version": "1.0.0",
+  "description": "2015 JS13k game entry",
+  "main": "Gruntfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/floriaen/miner.git"
+  },
+  "author": "Floriaen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/floriaen/miner/issues"
+  },
+  "dependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-copy": "~0.8.0",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-text-replace": "~0.4.0",
+    "grunt-contrib-concat": "~0.5.1",
+    "grunt-contrib-uglify": "~0.9.1",
+    "grunt-contrib-less": "~1.0.1",
+    "grunt-contrib-compress": "~0.13.0",
+    "grunt-contrib-htmlmin": "~0.4.0",
+    "grunt-contrib-copy": "~0.8.1",
+    "grunt-jsbeautifier": "~0.2.10",
+    "grunt-jscrush": "~0.1.0"
+  }
+}

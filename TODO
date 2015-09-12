@@ -1,0 +1,15 @@
+- Enhance the Walker IA
+
+    - Crazy Walker
+    - Fixed Walker way
+    - Follower (as today) with choice
+    - Kamikaze
+
++ Implement combo of extra tile
++ Fix bug of collision between Miner and Walker
+- Fix the bounds
+- Check the TODO
+- Remove SUPER_DRILL_DELAY references
+- Add fixed time seed for Math.random
+- Clean terrain.js / move specific code to Map.js
+- Move Map related code from Game.js to Map.js
