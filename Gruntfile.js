@@ -92,7 +92,6 @@ module.exports = function(grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-htmlmin');
 	grunt.loadNpmTasks('grunt-contrib-compress');
 	grunt.loadNpmTasks('grunt-contrib-copy');
@@ -115,6 +114,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('beautifier', ['jsbeautifier']);
 	grunt.registerTask('default', ['watch']);
 	grunt.registerTask('build', ['uglify:development', 'htmlmin:development', 'copy']);
-	grunt.registerTask('build-compress', ['uglify:compressed', 'less:compressed', 'htmlmin:compressed', 'copy', 'compress:main', 'sizecheck']);
+	grunt.registerTask('build-compress', ['uglify:compressed', 'htmlmin:compressed', 'copy', 'compress:main', 'sizecheck']);
 
 };
