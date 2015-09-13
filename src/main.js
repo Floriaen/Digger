@@ -41,7 +41,7 @@ document.onkeypress = function(e) {
 };
 
 var start = 0;
-
+/*
 // STATS
 var stats = new Stats();
 stats.setMode(0); // 0: fps, 1: ms, 2: mb
@@ -49,9 +49,9 @@ stats.domElement.style.position = 'absolute';
 stats.domElement.style.left = '0px';
 stats.domElement.style.top = '120px';
 document.body.appendChild(stats.domElement);
-
+*/
 function update(dt) {
-	stats.begin();
+	//stats.begin();
 
 	var p = (dt - start) / 1000;
 	start = dt;
@@ -59,7 +59,7 @@ function update(dt) {
 	Game.render();
 	window.requestAnimationFrame(update);
 
-	stats.end();
+	//stats.end();
 }
 
 M = Math;

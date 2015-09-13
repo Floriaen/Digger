@@ -193,7 +193,7 @@ Map.blocks = [ [ 1, 1, 1, 1, 1, 0, 1, 1, 27, 0, 27, 1, 1, 33, 1, 1 ], [ 1, 1, 0,
 
 Map.prototype = {
     init: function() {
-        var t = new Terrain(8);
+        var t = new Terrain(9);
         t.generate(1.5);
         for (var y = 0; y < t.size; y++) {
             for (var x = 0; x < t.size; x++) {
@@ -203,7 +203,7 @@ Map.prototype = {
             }
         }
         this.w = t.size;
-        this.h = t.size - 1;
+        this.h = t.size;
         this.tiles = new Float32Array(this.w * this.h);
         for (var y = 0; y < 10; y++) {
             for (var x = 0; x < t.size; x++) {
@@ -215,9 +215,22 @@ Map.prototype = {
                 this.tiles[x + t.size * y] = TILES.GRASS;
             }
         }
-        for (var y = 11; y < this.h; y++) {
+        for (var y = 11; y < this.h - 10; y++) {
             for (var x = 0; x < t.size; x++) {
                 this.tiles[x + t.size * y] = t.get(x, y);
+            }
+        }
+        for (var y = this.h - 6; y < this.h; y++) {
+            for (var x = 0; x < t.size; x++) {
+                var v = 0;
+                if (y === this.h - 1) {
+                    v = TILES.SPIKES;
+                } else if (y === this.h - 2) {
+                    if (M.random() < .6) {
+                        v = TILES.SPIKES;
+                    }
+                }
+                this.tiles[x + t.size * y] = v;
             }
         }
         for (var y = 11; y < 21; y++) {
@@ -978,26 +991,12 @@ document.onkeypress = function(e) {};
 
 var start = 0;
 
-var stats = new Stats();
-
-stats.setMode(0);
-
-stats.domElement.style.position = "absolute";
-
-stats.domElement.style.left = "0px";
-
-stats.domElement.style.top = "120px";
-
-document.body.appendChild(stats.domElement);
-
 function update(dt) {
-    stats.begin();
     var p = (dt - start) / 1e3;
     start = dt;
     Game.update(p);
     Game.render();
     window.requestAnimationFrame(update);
-    stats.end();
 }
 
 M = Math;

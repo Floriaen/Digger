@@ -94,7 +94,7 @@ Map.prototype = {
 
 	init: function() {
 		// build a terrain:
-		var t = new Terrain(8);
+		var t = new Terrain(9);
 		t.generate(1.5);
 
 		// erode it
@@ -107,7 +107,8 @@ Map.prototype = {
 		}
 
 		this.w = t.size;
-		this.h = t.size - 1;
+		this.h = t.size;
+
 		// add sky:
 		this.tiles = new Float32Array(this.w * this.h);
 		for (var y = 0; y < 10; y++) {
@@ -124,9 +125,24 @@ Map.prototype = {
 		}
 
 		// and finally underground
-		for (var y = 11; y < this.h; y++) {
+		for (var y = 11; y < this.h - 10; y++) {
 			for (var x = 0; x < t.size; x++) {
 				this.tiles[x + t.size * y] = t.get(x, y);
+			}
+		}
+
+		// and the horrible end, a chaos
+		for (var y = this.h - 6; y < this.h; y++) {
+			for (var x = 0; x < t.size; x++) {
+				var v = 0;
+				if (y === this.h - 1) {
+					v = TILES.SPIKES;
+				} else if (y === this.h - 2) {
+					if (M.random() < 0.6) {
+						v = TILES.SPIKES;
+					}
+				}
+				this.tiles[x + t.size * y] = v;
 			}
 		}
 
@@ -147,8 +163,7 @@ Map.prototype = {
 			if (y === t.max || x === t.max) return 0;
 			var max = (t.max * 2 * t.roughness);
 			var b = M.abs(~~val) / max;
-
-			b = ~~(10 * b) + 1; // 7 different type of tiles
+			b = ~~(10 * b) + 1;
 			return b;
 		}
 	},
