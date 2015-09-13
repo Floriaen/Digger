@@ -24,7 +24,6 @@ var Game = {
 	],
 
 	ctx: null,
-	world: null, //new Float32Array(6 * 32 * 6 * 32),
 
 	es: [],
 	_toRemove: false,
@@ -39,8 +38,6 @@ var Game = {
 	stuck: false,
 
 	sprite: document.getElementById('sprite'),
-
-
 
 	load: function(onLoaded) {
 		// buffer:
@@ -211,9 +208,6 @@ var Game = {
 	},
 
 	render: function() {
-
-		//this.buffer
-
 		this.ctx.fillStyle = '#202020';
 		this.ctx.fillRect(0, 0, this.width, this.height);
 
@@ -243,7 +237,7 @@ var Game = {
 			tx = 0,
 			ty = 0,
 			rx = 0,
-			ry = 0; //  + 2 * Camera.tileHeight
+			ry = 0;
 
 		for (var it = 0; it < Camera.tileCount; it++) {
 
@@ -348,10 +342,6 @@ var Game = {
 		this.ctx.font = "24px Arial, sans-serif";
 		this.ctx.fillStyle = "white";
 		this.ctx.fillText(this.score, 32, 30);
-
-		//this.ctx.restore();
-
-		//this.sctx.drawImage(this.buffer, 0, 0);
 	}
 };
 
