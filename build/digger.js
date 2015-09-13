@@ -108,8 +108,8 @@ var Camera = {
         this.w = width;
         this.h = height;
         this.tileHeight = this.h / Map.TILE;
-        this.tileCount = ~~(this.w * this.h / Map.TILE);
         this.tileCountForWidth = ~~(this.w / Map.TILE);
+        this.tileCount = ~~(this.w / Map.TILE * (this.h / Map.TILE)) + Camera.tileCountForWidth * 6;
     },
     set follow(e) {
         this._follow = e;
@@ -1009,8 +1009,8 @@ window.onload = function() {
     Game.ctx["mozImageSmoothingEnabled"] = false;
     Game.ctx["oImageSmoothingEnabled"] = false;
     Game.ctx["msImageSmoothingEnabled"] = false;
-    Game.width = Game.canvas.width / 2;
-    Game.height = Game.canvas.height / 2;
+    Game.width = Game.canvas.width;
+    Game.height = Game.canvas.height;
     Camera.setDimension(Game.canvas.width, Game.canvas.height);
     Game.load(function() {
         window.requestAnimationFrame(update);

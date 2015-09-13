@@ -15,8 +15,8 @@ var Camera = {
 		this.w = width;
 		this.h = height;
 		this.tileHeight = this.h / Map.TILE;
-		this.tileCount = ~~(this.w * this.h / Map.TILE);
 		this.tileCountForWidth = ~~(this.w / Map.TILE);
+		this.tileCount = ~~((this.w / Map.TILE) * (this.h / Map.TILE)) + Camera.tileCountForWidth * 6;
 	},
 
 	set follow(e) {
