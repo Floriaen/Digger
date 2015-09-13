@@ -45,14 +45,14 @@
 		this.miner.v.y *= -1;
 		this.miner.v.x *= -1;
 		this.add(
-			new Explosion(x * Game.TILE, y * Game.TILE, function() {
+			new Explosion(x * Map.TILE, y * Map.TILE, function() {
 
-				var center = M.floor(Game.EXPLOSION_WIDTH / 2);
+				var center = ~~(Game.EXPLOSION_WIDTH / 2);
 				//var c = this.getIndexForTile(x - center, y - center);
 				var i = Game.EXPLOSION.length;
 				var xr = 0, yr = 0;
 				while (i--) {
-					yr = M.floor(i / Game.EXPLOSION_WIDTH);
+					yr = ~~(i / Game.EXPLOSION_WIDTH);
 					xr = i - yr * Game.EXPLOSION_WIDTH;
 					if (Game.EXPLOSION[i] === 1) {
 						Game.setTile(x + xr - center, y + yr - center, 0);

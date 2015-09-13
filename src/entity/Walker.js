@@ -21,9 +21,9 @@ Walker.prototype = {
 	update: function(dt) {
 		Entity.update.call(this, dt);
 
-		if (Game.isTileSolid(this.tile.x, this.tile.y)) {
+		if (Game.map.isTileSolid(this.tile.x, this.tile.y)) {
 			Game.remove(this);
-		} else if (Game.getTile(this.tile.x, this.tile.y + 1) === TILES.SPIKES) {
+		} else if (Game.map.getTile(this.tile.x, this.tile.y + 1) === TILES.SPIKES) {
 			Game.remove(this);
 		}
 
@@ -69,14 +69,14 @@ Walker.prototype = {
 					if (diffY > 0) { // if walker are on top
 						this.currentTile.dig(this.tile.x, this.tile.y + 1, 0);
 					} else if (this.onLeft && diffX < 0) { // if walker are on left
-						if (!Game.isDiggable(this.tile.x - 1, this.tile.y)) {
+						if (!Game.map.isDiggable(this.tile.x - 1, this.tile.y)) {
 							// try to dig down
 							this.currentTile.dig(this.tile.x, this.tile.y + 1, 0);
 						} else {
 							this.currentTile.dig(this.tile.x - 1, this.tile.y, 0);
 						}
 					} else if (this.onRight && diffX > 0) { // if walker are on the right
-						if (!Game.isDiggable(this.tile.x + 1, this.tile.y)) {
+						if (!Game.map.isDiggable(this.tile.x + 1, this.tile.y)) {
 							// try to dig down
 							this.currentTile.dig(this.tile.x, this.tile.y + 1, 0);
 						} else {
@@ -85,14 +85,14 @@ Walker.prototype = {
 					}
 				} else {
 					if (this.onLeft && diffX < 0) { // if walker are on left
-						if (!Game.isDiggable(this.tile.x - 1, this.tile.y)) {
+						if (!Game.map.isDiggable(this.tile.x - 1, this.tile.y)) {
 							// try to dig down
 							this.currentTile.dig(this.tile.x, this.tile.y + 1, 0);
 						} else {
 							this.currentTile.dig(this.tile.x - 1, this.tile.y, 0);
 						}
 					} else if (this.onRight && diffX > 0) { // if walker are on the right
-						if (!Game.isDiggable(this.tile.x + 1, this.tile.y)) {
+						if (!Game.map.isDiggable(this.tile.x + 1, this.tile.y)) {
 							// try to dig down
 							this.currentTile.dig(this.tile.x, this.tile.y + 1, 0);
 						} else {
@@ -110,17 +110,17 @@ Walker.prototype = {
 	render: function(ctx) {
 		this.currentTile.select(ctx, false);
 		// draw shadow:
-		if (Game.isTileSolid(this.tile.x, this.tile.y + 1)) {
+		if (Game.map.isTileSolid(this.tile.x, this.tile.y + 1)) {
 			ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
 			Canvas.drawEllipse(ctx,
-				this.x - Camera.x - this.size / 2, (this.tile.y + 1) * Game.TILE - Camera.y - (Game.TILE * 0.43),
+				this.x - Camera.x - this.size / 2, (this.tile.y + 1) * Map.TILE - Camera.y - (Map.TILE * 0.43),
 				this.size,
 				6
 			);
 		}
 
 		ctx.beginPath();
-		ctx.arc(this.x - Camera.x, this.y - Camera.y - (Game.TILE * 0.3), this.size / 2, 2 * M.PI, false);
+		ctx.arc(this.x - Camera.x, this.y - Camera.y - (Map.TILE * 0.3), this.size / 2, 2 * M.PI, false);
 		ctx.fillStyle = '#000'; //this.digDown ? 'gray': 'green';
 		ctx.fill();
 	}

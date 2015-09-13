@@ -14,9 +14,9 @@ var Camera = {
 	setDimension: function(width, height) {
 		this.w = width;
 		this.h = height;
-		this.tileHeight = this.h / Game.TILE;
-		this.tileCount = M.floor(this.w * this.h / Game.TILE);
-		this.tileCountForWidth = M.floor(this.w / Game.TILE);
+		this.tileHeight = this.h / Map.TILE;
+		this.tileCount = ~~(this.w * this.h / Map.TILE);
+		this.tileCountForWidth = ~~(this.w / Map.TILE);
 	},
 
 	set follow(e) {
@@ -34,18 +34,18 @@ var Camera = {
 
 		if (this.x < 0) {
 			this.x = 0;
-		} else if (this.x > Game.worldW * Game.TILE - this.w) {
-			this.x = Game.worldW * Game.TILE - this.w;
+		} else if (this.x > Game.map.w * Map.TILE - this.w) {
+			this.x = Game.map.w * Map.TILE - this.w;
 		}
 
 		if (this.y < 96) {
 			this.y = 96;
-		} else if (this.y > Game.worldH * Game.TILE - this.h) {
-			this.y = Game.worldH * Game.TILE - this.h;
+		} else if (this.y > Game.map.h * Map.TILE - this.h) {
+			this.y = Game.map.h * Map.TILE - this.h;
 		}
 
-		this.tile.x = M.floor(this.x / Game.TILE);
-		this.tile.y = M.floor(this.y / Game.TILE);
+		this.tile.x = ~~(this.x / Map.TILE);
+		this.tile.y = ~~(this.y / Map.TILE);
 	},
 
 	onCamera: function(x, y, margin) {

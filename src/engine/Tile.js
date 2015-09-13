@@ -12,8 +12,8 @@ function Tile(x, y, c) {
 	this.shakeDuration = 0;
 	// buffer:
 	this.sprite = document.createElement('canvas');
-	this.sprite.width = Game.TILE;
-	this.sprite.height = Game.TILE + 18;
+	this.sprite.width = Map.TILE;
+	this.sprite.height = Map.TILE + 18;
 	this.buffer = this.sprite.getContext('2d');
 
 	this.onShakeComplete = null;
@@ -46,7 +46,7 @@ Tile.prototype = {
 	},
 
 	dig: function(tileX, tileY, digger) {
-		if (!Game.isDiggable(tileX, tileY)) {
+		if (!Game.map.isDiggable(tileX, tileY)) {
 			this.reset();
 			return false;
 		}
@@ -59,15 +59,15 @@ Tile.prototype = {
 				} else if (this.val === TILES.CRATE) {
 					if (Game.miner === digger) {
 						Game.score += 1;
-						Game.add(new Gain(this.x * Game.TILE + Game.TILE / 2, this.y * Game.TILE + Game.TILE / 2));
+						Game.add(new Gain(this.x * Map.TILE + Map.TILE / 2, this.y * Map.TILE + Map.TILE / 2));
 					}
 				}
 
-				Game.setTile(this.x, this.y, 0);
+				Game.map.setTile(this.x, this.y, 0);
 				this.val = 0;
 			}
 		} else {
-			this.val = Game.getTile(tileX, tileY);
+			this.val = Game.map.getTile(tileX, tileY);
 			var tile = TILES.get(this.val);
 			if (tile) {
 				this.x = tileX;
@@ -83,9 +83,9 @@ Tile.prototype = {
 	},
 
 	select: function(ctx, showBorder) {
-		if (Game.isDiggable(this.x, this.y)) {
-			rx = M.floor(this.x * Game.TILE) - Camera.x;
-			ry = M.floor(this.y * Game.TILE) - Camera.y;
+		if (Game.map.isDiggable(this.x, this.y)) {
+			rx = ~~(this.x * Map.TILE) - Camera.x;
+			ry = ~~(this.y * Map.TILE) - Camera.y;
 
 			var alpha = this.d.count / this.d.max;
 			ctx.fillStyle = "rgba(0, 0, 0," + alpha * 0.2 + ")";
@@ -93,15 +93,15 @@ Tile.prototype = {
 			ctx.strokeStyle = "white";
 
 			ctx.beginPath();
-			if (!Game.isTileSolid(this.x, this.y - 1)) {
-				ctx.fillRect(rx, ry - 18, Game.TILE, Game.TILE + 18);
+			if (!Game.map.isTileSolid(this.x, this.y - 1)) {
+				ctx.fillRect(rx, ry - 18, Map.TILE, Map.TILE + 18);
 				if (showBorder) {
-					ctx.rect(rx, ry - 18, Game.TILE, Game.TILE + 18);
+					ctx.rect(rx, ry - 18, Map.TILE, Map.TILE + 18);
 				}
 			} else {
-				ctx.fillRect(rx, ry, Game.TILE, Game.TILE);
+				ctx.fillRect(rx, ry, Map.TILE, Map.TILE);
 				if (showBorder) {
-					ctx.rect(rx, ry, Game.TILE, Game.TILE);
+					ctx.rect(rx, ry, Map.TILE, Map.TILE);
 				}
 			}
 			ctx.stroke();
@@ -109,20 +109,20 @@ Tile.prototype = {
 	},
 
 	render: function(ctx) {
-		this.buffer.clearRect(0, 0, Game.TILE, Game.TILE + 18);
+		this.buffer.clearRect(0, 0, Map.TILE, Map.TILE + 18);
 		this.buffer.fillStyle = this.c;
-		this.buffer.fillRect(0, 18, Game.TILE, Game.TILE);
-		if (!Game.isTileSolid(M.floor(this.x / Game.TILE), M.floor(this.y / Game.TILE) - 1)) {
+		this.buffer.fillRect(0, 18, Map.TILE, Map.TILE);
+		if (!Game.map.isTileSolid(~~(this.x / Map.TILE), ~~(this.y / Map.TILE) - 1)) {
 			this.buffer.fillStyle = colorLuminance(this.c, -0.2);
-			this.buffer.fillRect(0, 0, Game.TILE, 18);
+			this.buffer.fillRect(0, 0, Map.TILE, 18);
 		}
 		ctx.save();
 		if (this.shakeDuration > 0) {
 			// shake:
-			ctx.translate(M.floor((0.5 - M.random()) * 6), M.floor((0.5 - M.random()) * 3));
+			ctx.translate(~~((0.5 - M.random()) * 6), ~~((0.5 - M.random()) * 3));
 		}
 		ctx.fillStyle = 'white';
-		ctx.drawImage(this.sprite, M.floor(this.x - Camera.x), M.floor(this.y - Camera.y) - 18);
+		ctx.drawImage(this.sprite, ~~(this.x - Camera.x), ~~(this.y - Camera.y) - 18);
 		ctx.restore();
 	}
 }

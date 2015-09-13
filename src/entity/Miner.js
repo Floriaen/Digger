@@ -19,9 +19,9 @@ Miner.HELP_DELAY = 0.8;
 Miner.prototype = {
 	update: function(dt) {
 
-		if (Game.isTileSolid(this.tile.x, this.tile.y)) {
+		if (Game.map.isTileSolid(this.tile.x, this.tile.y)) {
 			Game.remove(this);
-		} else if (Game.getTile(this.tile.x, this.tile.y + 1) === TILES.SPIKES) {
+		} else if (Game.map.getTile(this.tile.x, this.tile.y + 1) === TILES.SPIKES) {
 			Game.remove(this);
 		}
 
@@ -29,7 +29,7 @@ Miner.prototype = {
 
 		if ((this.digDelay -= dt) < 0) this.digDelay = 0;
 
-		if ((this.direction === 1 || Input.keys.left === 1) && Game.isTileSolid(this.tile.x - 1, this.tile.y)) {
+		if ((this.direction === 1 || Input.keys.left === 1) && Game.map.isTileSolid(this.tile.x - 1, this.tile.y)) {
 			this.direction = 1;
 
 			this.showHelpDelay = Miner.HELP_DELAY;
@@ -40,7 +40,7 @@ Miner.prototype = {
 					this.direction = 0;
 				}
 			}
-		} else if ((this.direction === 2 || Input.keys.right === 1) && Game.isTileSolid(this.tile.x + 1, this.tile.y)) {
+		} else if ((this.direction === 2 || Input.keys.right === 1) && Game.map.isTileSolid(this.tile.x + 1, this.tile.y)) {
 			this.direction = 2;
 
 			this.showHelpDelay = Miner.HELP_DELAY;
@@ -87,17 +87,17 @@ Miner.prototype = {
 
 		// draw shadow:
 		var tileYBelow = null;
-		if (Game.isTileSolid(this.tile.x, this.tile.y + 1)) {
+		if (Game.map.isTileSolid(this.tile.x, this.tile.y + 1)) {
 			tileYBelow = 1;
-		} else if (Game.isTileSolid(this.tile.x, this.tile.y + 2)) {
+		} else if (Game.map.isTileSolid(this.tile.x, this.tile.y + 2)) {
 			tileYBelow = 2;
-		} else if (Game.isTileSolid(this.tile.x, this.tile.y + 3)) {
+		} else if (Game.map.isTileSolid(this.tile.x, this.tile.y + 3)) {
 			tileYBelow = 3;
 		}
 		if (tileYBelow) {
 			ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
 			Canvas.drawEllipse(ctx,
-				this.x - Camera.x - this.size / 2, (this.tile.y + tileYBelow) * Game.TILE - Camera.y - (Game.TILE * 0.43),
+				this.x - Camera.x - this.size / 2, (this.tile.y + tileYBelow) * Map.TILE - Camera.y - (Map.TILE * 0.43),
 				this.size,
 				6
 			);
@@ -105,35 +105,35 @@ Miner.prototype = {
 
 		// body
 		ctx.beginPath();
-		ctx.arc(this.x - Camera.x, this.y - Camera.y - (Game.TILE * 0.3), this.size / 2, 2 * M.PI, false);
+		ctx.arc(this.x - Camera.x, this.y - Camera.y - (Map.TILE * 0.3), this.size / 2, 2 * M.PI, false);
 		ctx.fillStyle = '#FF0000';
 		ctx.fill();
 
 		if (this.showHelpDelay === 0) {
 			var stuck = true; // TODO game logic, should not be there
-			if (Game.isDiggableAndSafe(this.tile.x, this.tile.y + 1)) {
+			if (Game.map.isDiggableAndSafe(this.tile.x, this.tile.y + 1)) {
 				stuck = false;
 				ctx.drawImage(
 					Game.sprite, 16, 50, 16, 16,
-					this.tile.x * Game.TILE - Camera.x, (this.tile.y + 1) * Game.TILE - Camera.y,
+					this.tile.x * Map.TILE - Camera.x, (this.tile.y + 1) * Map.TILE - Camera.y,
 					32, 32
 				);
 			}
 
-			if (Game.isDiggableAndSafe(this.tile.x - 1, this.tile.y)) {
+			if (Game.map.isDiggableAndSafe(this.tile.x - 1, this.tile.y)) {
 				stuck = false;
 				ctx.drawImage(
-					Game.sprite, 0, 50, 16, 16, (this.tile.x - 1) * Game.TILE - Camera.x,
-					this.tile.y * Game.TILE - Camera.y,
+					Game.sprite, 0, 50, 16, 16, (this.tile.x - 1) * Map.TILE - Camera.x,
+					this.tile.y * Map.TILE - Camera.y,
 					32, 32
 				);
 			}
 
-			if (Game.isDiggableAndSafe(this.tile.x + 1, this.tile.y)) {
+			if (Game.map.isDiggableAndSafe(this.tile.x + 1, this.tile.y)) {
 				stuck = false;
 				ctx.drawImage(
-					Game.sprite, 32, 50, 16, 16, (this.tile.x + 1) * Game.TILE - Camera.x,
-					this.tile.y * Game.TILE - Camera.y,
+					Game.sprite, 32, 50, 16, 16, (this.tile.x + 1) * Map.TILE - Camera.x,
+					this.tile.y * Map.TILE - Camera.y,
 					32, 32
 				);
 			}

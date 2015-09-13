@@ -39,10 +39,10 @@ Entity = {
 	},
 
 	updatePosition: function() {
-		this.tile.x = ~~(this.x / Game.TILE);
-		this.tile.y = ~~(this.y / Game.TILE);
-		this.xr = (this.x - this.tile.x * Game.TILE) / Game.TILE;
-		this.yr = (this.y - this.tile.y * Game.TILE) / Game.TILE;
+		this.tile.x = ~~(this.x / Map.TILE);
+		this.tile.y = ~~(this.y / Map.TILE);
+		this.xr = (this.x - this.tile.x * Map.TILE) / Map.TILE;
+		this.yr = (this.y - this.tile.y * Map.TILE) / Map.TILE;
 	},
 
 	update: function(dt) {
@@ -57,13 +57,13 @@ Entity = {
 		// X component
 		this.xr += this.v.x * dt;
 
-		if (Game.isTileSolid(this.tile.x - 1, this.tile.y) && this.xr <= Entity.XCAP) {
+		if (Game.map.isTileSolid(this.tile.x - 1, this.tile.y) && this.xr <= Entity.XCAP) {
 			this.v.x = 0;
 			this.xr = Entity.XCAP;
 			this.onLeft = true;
 		}
 
-		if (Game.isTileSolid(this.tile.x + 1, this.tile.y) && this.xr >= Entity.YCAP) {
+		if (Game.map.isTileSolid(this.tile.x + 1, this.tile.y) && this.xr >= Entity.YCAP) {
 			this.v.x = 0;
 			this.xr = Entity.YCAP;
 			this.onRight = true;
@@ -82,12 +82,12 @@ Entity = {
 		this.v.y += this.gravity;
 		this.yr += this.v.y * dt;
 
-		if (Game.isTileSolid(this.tile.x, this.tile.y - 1) && this.yr <= Entity.XCAP) {
+		if (Game.map.isTileSolid(this.tile.x, this.tile.y - 1) && this.yr <= Entity.XCAP) {
 			this.v.y = 0;
 			this.yr = Entity.XCAP;
 		}
 
-		if (Game.isTileSolid(this.tile.x, this.tile.y + 1) && this.yr >= Entity.YCAP) {
+		if (Game.map.isTileSolid(this.tile.x, this.tile.y + 1) && this.yr >= Entity.YCAP) {
 			this.v.y = 0;
 			this.yr = Entity.YCAP;
 			this.onGround = true;
@@ -106,8 +106,8 @@ Entity = {
 		var ox = this.x,
 			oy = this.y;
 
-		this.x = ~~((this.tile.x + this.xr) * Game.TILE);
-		this.y = ~~((this.tile.y + this.yr) * Game.TILE);
+		this.x = ~~((this.tile.x + this.xr) * Map.TILE);
+		this.y = ~~((this.tile.y + this.yr) * Map.TILE);
 
 		this.moving = ox !== this.x || oy !== this.y;
 	}
